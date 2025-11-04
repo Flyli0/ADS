@@ -1,3 +1,5 @@
 *.exe
 *.json
 desktop.ini
+test.cpp
+.gitignore
