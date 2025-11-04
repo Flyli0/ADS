@@ -19,7 +19,7 @@ vector<long long> lps(string& str){
         else{
             if(len == 0){
                 lps[i] = 0;
-                i++;    
+                i++;
             }
             else{
                 len = lps[len-1];
@@ -44,7 +44,7 @@ vector<long long> KMP(string& str, string& pat){
             j++;
             i++;
             if(j == m){
-                result.push_back(i-j);
+                result.push_back(i-j+1);
                 j = p_lps[j - 1];
             }
         }
@@ -61,16 +61,11 @@ vector<long long> KMP(string& str, string& pat){
 }
 
 int main(){
-    string a; 
-    string pat = "ababaa";
-    string text = "ababaababaacdbababaa";
-    a = "ababcab";
-
-    for(const auto& ut: KMP(text, pat)){
+    string text;
+    string pat;
+    cin >> text >> pat;
+    cout << KMP(text, pat).size() << endl;
+    for(auto& ut: KMP(text, pat)){
         cout << ut << ' ';
-    }
-    cout << '\n';
-    for(const auto& it: lps(a)){
-        cout << it << ' ';
     }
 }
