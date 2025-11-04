@@ -1,64 +1,71 @@
 #include <iostream>
 #include <vector>
-#include <string>
-#include <algorithm>
-#include <cctype>
 
 using namespace std;
 
-vector<int> prefix_function(const string &s) {
-    int n = s.size();
-    vector<int> pi(n, 0);
-    for (int i = 1; i < n; i++) {
-        int j = pi[i - 1];
-        while (j > 0 && s[i] != s[j])
-            j = pi[j - 1];
-        if (s[i] == s[j])
-            j++;
-        pi[i] = j;
-    }
-    return pi;
-}
+vector<long long> lps(string& str){
+    long long i = 1;
+    long long n = str.size();
+    long long len = 0;
 
-string to_lowercase(const string &s) {
-    string res = s;
-    for (auto &ch : res)
-        ch = tolower(ch);
-    return res;
+    vector<long long> lps(n,0);
+
+    while(i<n){
+        if(str[len] == str[i]){
+            len++;
+            lps[i]= len;
+            i++;
+        }
+        else{
+            if(len == 0){
+                lps[i] = 0;
+                i++;    
+            }
+            else{
+                len = lps[len-1];
+            }
+        }
+    } 
+    return lps;
 }
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
 
-    string prev;
-    int n;
+    string       prev;
+    long long    n;
+    long long    maxx = 0;
+
     cin >> prev >> n;
-    prev = to_lowercase(prev);
+    prev[0] = tolower(prev[0]);
 
-    vector<string> cities(n);
-    for (int i = 0; i < n; i++)
-        cin >> cities[i];
+    vector<string> cities;
+    vector<string> answer;
+    
 
-    int best = 0;
-    vector<string> result;
+    for (int i = 0; i < n; i++){
+        string temp;
+        cin >> temp;
+        cities.push_back(temp);
+    }   
 
-    for (auto &city : cities) {
-        string city_lower = to_lowercase(city);
-
-        string combined = prev + "#" + city_lower;
-        vector<int> pi = prefix_function(combined);
-
-        int overlap = pi.back(); 
-        if (overlap > best) {
-            best = overlap;
-            result = {city};
-        } else if (overlap == best) {
-            result.push_back(city);
+    for(auto& city: cities){
+        string temp = city;
+        temp[0] = tolower(temp[0]);
+        string test = temp + '#' + prev;
+        vector<long long> ps = lps(test);
+        
+        if(ps.back() > maxx & ps.back()!=0){
+            answer = {city};
+            maxx = ps.back();
         }
-    }
+        else if(ps.back() == maxx && ps.back()!=0){
+            answer.push_back(city);
+        }
 
-    cout << result.size() << "\n";
-    for (auto &name : result)
-        cout << name << "\n";
+        
+    }
+    cout << answer.size() << endl;
+    for(auto& l:answer){
+        cout << l << endl;
+    }
 }
