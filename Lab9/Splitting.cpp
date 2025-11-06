@@ -33,7 +33,16 @@ vector<long long> lps(string& str){
 int main(){
     string text; 
     cin >> text; 
-    for(auto& it:lps(text)){
-        cout << it << ' ';
+    long long i = 1;
+    long long count = 0;
+    long long n = text.length();
+    vector<long long> l = lps(text);
+    while(i<n-1){
+        long long s = i+1;
+        if((i+1)%2==0 && l[i]>=(i+1)/2 && text.substr(0, s/2) + text.substr(0, s/2) == text.substr(0,s)){
+            count++;
+        }
+        i++;
     }
+    cout << count;
 }
