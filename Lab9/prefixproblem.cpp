@@ -34,6 +34,5 @@ int main(){
     string a;
     cin >> a;
     vector<long long> al = lps(a);
-    sort(al.begin(),al.end());
-    cout << al.back()-1;
+    cout << a.size()-al[a.size()-1];
 }
