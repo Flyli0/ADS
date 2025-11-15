@@ -26,8 +26,6 @@ unordered_set<int64> all_sub_hashes(const string &s, int len, const vector<int64
 }
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
     int K;
     if (!(cin >> K)) return 0;
     vector<string> ss(K);
