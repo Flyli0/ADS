@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int pathlen(vector<vector<int>>& adj, int& start, int& count, int& target){
+int pathlen(vector<vector<int>>& adj, int& start, int& target){
     vector<bool> visited(adj.size(),false);
     queue<int> q;
 
@@ -19,7 +19,7 @@ int pathlen(vector<vector<int>>& adj, int& start, int& count, int& target){
             int vertex = q.front();
             q.pop();
             if(vertex == target){
-                return count;
+                return 1;
             }
             for(int i = 0;  i<adj[vertex].size(); i++){
                 int neighbour = adj[vertex][i];
@@ -29,7 +29,6 @@ int pathlen(vector<vector<int>>& adj, int& start, int& count, int& target){
                 }
             }
         }
-        count++;
     }   
     return -1;
 }
@@ -37,14 +36,20 @@ int pathlen(vector<vector<int>>& adj, int& start, int& count, int& target){
 int main(){
     int n, m;
     cin >> n >> m;
-
     vector<vector<int>>  adj(n+1);
 
-    for(int i = 0; i<n; i++){
-        
-        adj[i+1].push_back(j+1);
-            
+    for(int i = 0; i<m; i++){
+        int vertex, path;
+        cin >> vertex >> path;
+        adj[vertex].push_back(path);
     }
-    
-
+    int start, finish;
+    cin >> start >> finish;
+    int y = pathlen(adj, start,finish);
+    if(y == 1){
+        cout << "YES";
+    }
+    else{
+        cout << "NO";
+    }
 }
