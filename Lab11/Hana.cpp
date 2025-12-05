@@ -1,14 +1,14 @@
 #include <iostream> 
 #include <vector>
-#include <stack>
+#include <queue>
 #include <algorithm>
 
 using namespace std;
 
 typedef pair<int,int> pii;
 
-
-/*class DSU{
+// -------------------------------------------------------------------------------------------KRUSKAL
+/*class DSU{ 
     private:
     vector<int64> parent;
     vector<int64> rank;
@@ -90,7 +90,7 @@ int main(){
 } */
 
 
-
+//----------------------------------------------------------------------------------------------------------------PRIM
 long long prim(int n, vector<vector<pii>>& adj) {
     vector<bool> used(n+1, false);
     priority_queue<pii, vector<pii>, greater<pii>> pq;
@@ -117,8 +117,7 @@ long long prim(int n, vector<vector<pii>>& adj) {
 }
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+
 
     int n, m;
     cin >> n >> m;

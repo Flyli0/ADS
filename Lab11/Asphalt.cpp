@@ -1,7 +1,7 @@
-#include <iostream> 
-#include <vector>
+#include <iostream>
 #include <queue>
 #include <algorithm>
+#include <cmath>
 
 using namespace std;
 
@@ -11,8 +11,8 @@ class DSU{
     vector<int> rank;
     public:
     DSU(int n){
-        parent.resize(n);
-        rank.resize(n,0);
+        parent.resize(n+1);
+        rank.resize(n+1,0);
         for(int i = 0; i<n; i++){
             parent[i] = i;
         }
@@ -68,17 +68,25 @@ int kruscal(vector<Edge>& elist, int n){
 }
 
 int main(){
-    vector<Edge> edges;
-
-    edges.push_back({0, 1, 13});
-    edges.push_back({0, 2, 12});
-    edges.push_back({1, 2, 3});
-    edges.push_back({1, 3, 14});
-    edges.push_back({2, 3, 9});
-
-    cout << kruscal(edges, 4) << endl;
-} 
-
-
-
-
+     int n,m;
+     int price1, price2;
+     cin >> n >> m >> price1 >> price2;
+     vector<Edge> elist;
+     for(int i = 0; i<m; i++){
+        int from, to, len, total_cost;
+        string comm;
+        cin >> comm >> from >> to >> len;
+        if(comm == "big"){
+            total_cost = len*price1;
+        }
+        else if(comm == "small"){
+            total_cost = len*price2;
+        }
+        else if(comm == "both"){
+            total_cost = len * min(price1,price2);
+        }
+        elist.push_back({from,to,total_cost});
+     }
+     
+     cout << kruscal(elist,n);
+}
